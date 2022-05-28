@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   final Color black = const Color(0xff000000);
-  final Color blue = const Color(0xff0EA5E9);
+  final Color primary = const Color(0xff0f3b57);
   final Color error = const Color(0xffef4444);
   final Color background = const Color(0xfff9fafb);
   final Color white = const Color(0xffffffff);
