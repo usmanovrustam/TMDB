@@ -1,6 +1,8 @@
 class UriUtils {
-  static String makeEncodedUri(String base,
-      {Map<String, dynamic>? queryParameters}) {
+  static String makeEncodedUri(
+    String base, {
+    Map<String, dynamic>? queryParameters,
+  }) {
     // This is 99% copied from `dart:http` package, as it should be
     // the function to see there is _makeQuery
     if (queryParameters == null || queryParameters.isEmpty) {

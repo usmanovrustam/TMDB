@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb/cells/gradient_card.dart';
+import 'package:tmdb/model/movie.dart';
 import 'package:tmdb/theme/style.dart';
 
 class MovieCard extends StatelessWidget {
-  const MovieCard({Key? key}) : super(key: key);
+  final Movie? movie;
+  const MovieCard({Key? key, this.movie}) : super(key: key);
 
   Widget text(String title, String text) => Expanded(
         child: Text.rich(
@@ -30,7 +32,7 @@ class MovieCard extends StatelessWidget {
         child: ClipRRect(
           borderRadius: Style.border8,
           child: Image.network(
-            "https://image.tmdb.org/t/p/w500//q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
+            movie!.posterImage,
             fit: BoxFit.cover,
           ),
         ),
@@ -43,22 +45,21 @@ class MovieCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Text(
-                  "Spider Man",
-                  style: Style.headline6.copyWith(
-                    color: Style.colors.white,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+              Text(
+                movie!.title!,
+                maxLines: 2,
+                style: Style.headline6.copyWith(
+                  color: Style.colors.white,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               const SizedBox(height: 10),
-              text("Released at: ", '1994-09-23'),
-              const SizedBox(height: 8),
-              text("Ganres: ", 'Epic, Tragedy, Comedy'),
-              const SizedBox(height: 8),
-              text("Vote: ", '8.7 (21470)'),
-              const SizedBox(height: 8),
+              text("Released at: ", movie!.releaseDate!),
+              const SizedBox(height: 2),
+              text("Ganres: ", movie!.genres.join(",")),
+              const SizedBox(height: 2),
+              text("Vote: ", '${movie!.voteAverage} (${movie!.voteCount})'),
+              const SizedBox(height: 2),
             ],
           ),
         ),

@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:tmdb/repositories/util/exception.dart';
+import 'package:tmdb/utils/constants.dart';
 import 'package:tmdb/utils/logger.dart';
 import 'package:tmdb/utils/uri.dart';
 
@@ -37,9 +38,12 @@ class RepositoryUtils {
   static Future<http.Response> executeRequest(
     http.Client client,
     String endpointUrl, {
+    int? page,
     String method = 'get',
     Map<String, dynamic>? data,
   }) async {
+    endpointUrl = "$endpointUrl?api_key=$apiKey";
+    if (page != null) endpointUrl = "$endpointUrl&page=$page";
     final headers = await getHeaders();
     final uri = Uri.parse(
       getUri(
@@ -107,10 +111,12 @@ class RepositoryUtils {
     http.Client client,
     String endpointUrl, {
     Map<String, dynamic>? data,
+    int? page,
   }) async {
     return executeRequest(
       client,
       endpointUrl,
+      page: page,
       method: 'get',
       data: data,
     );
