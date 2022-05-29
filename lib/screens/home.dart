@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:tmdb/screens/popular_movies.dart';
 import 'package:tmdb/theme/style.dart';
 
 class HomeController extends StatelessWidget {
@@ -7,7 +8,7 @@ class HomeController extends StatelessWidget {
   Widget buildItem(int index) {
     switch (index) {
       case 0:
-        return Container();
+        return const PopularMovies();
       case 1:
         return Container();
       case 2:
