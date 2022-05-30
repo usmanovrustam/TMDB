@@ -57,7 +57,9 @@ class Movie {
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
         id: json["id"],
         title: json["title"],
-        voteAverage: json["vote_average"],
+        voteAverage: json["vote_average"] is int
+            ? (json["vote_average"] as int).toDouble()
+            : json["vote_average"],
         voteCount: json["vote_count"],
         releaseDate: json["release_date"],
         posterPath: json["poster_path"],
