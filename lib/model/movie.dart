@@ -6,7 +6,11 @@ class Movie {
   String? title;
   double? voteAverage;
   int? voteCount;
+  int? budget;
+  int? revenue;
+  int? runtime;
   String? releaseDate;
+  String? homepage;
   String? posterPath;
   double? popularity;
   String? overview;
@@ -20,6 +24,8 @@ class Movie {
   Movie({
     this.id,
     this.title,
+    this.budget,
+    this.homepage,
     this.voteAverage,
     this.voteCount,
     this.releaseDate,
@@ -29,6 +35,8 @@ class Movie {
     this.originalTitle,
     this.originalLanguage,
     this.genreIds,
+    this.runtime,
+    this.revenue,
     this.backdropPath,
     this.adult,
     this.video,
@@ -50,9 +58,25 @@ class Movie {
     );
   }
 
+  int get hour => runtime! ~/ 60;
+
+  int get minutes => runtime! % 60;
+
+  String get displayRunTime =>
+      hour > 0 ? "$hour Hour $displayMinute" : "$minutes Minute";
+
+  String get displayMinute => minutes != 0 ? "$minutes Minute" : "";
+
+  String get nameWithDate =>
+      "$originalTitle (${releaseDate!.isNotEmpty ? DateTime.parse(releaseDate!).year : ""})";
+
+  String get voteAvgWithCount => '$voteAverage ($voteCount)';
+
   String get backdropImage => "${Settings.imageUrl}$backdropPath";
 
   String get posterImage => "${Settings.imageUrl}$posterPath";
+
+  String get fixedBudget => budget.toString();
 
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
         id: json["id"],
@@ -65,9 +89,15 @@ class Movie {
         posterPath: json["poster_path"],
         popularity: json["popularity"],
         overview: json["overview"],
+        homepage: json["homepage"] ?? "",
         originalTitle: json["original_title"],
+        budget: json["budget"],
+        revenue: json["revenue"],
+        runtime: json["runtime"],
         originalLanguage: json["original_language"],
-        genreIds: List<int>.from(json["genre_ids"]),
+        genreIds: json["genre_ids"] != null
+            ? List<int>.from(json["genre_ids"])
+            : null,
         backdropPath: json["backdrop_path"],
         adult: json["adult"],
         video: json["video"],

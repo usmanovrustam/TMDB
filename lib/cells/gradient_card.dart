@@ -24,7 +24,7 @@ class GradientCard extends StatelessWidget {
   }) : super(key: key);
 
   BorderRadius get radius =>
-      roundedBorders ? (borderRadius ?? Style.border8) : BorderRadius.zero;
+      roundedBorders ? (borderRadius ?? Style.border10) : BorderRadius.zero;
 
   @override
   Widget build(BuildContext context) => Card(
@@ -35,6 +35,7 @@ class GradientCard extends StatelessWidget {
         child: ClipRRect(
           borderRadius: radius,
           child: Material(
+            color: Style.colors.primary,
             child: GestureDetector(
               onTap: onTap,
               child: Container(
