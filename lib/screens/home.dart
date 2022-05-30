@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tmdb/screens/popular_movies.dart';
+import 'package:tmdb/screens/popular.dart';
+import 'package:tmdb/screens/top_movies.dart';
+import 'package:tmdb/screens/upcoming.dart';
 import 'package:tmdb/theme/style.dart';
 
 class HomeController extends StatelessWidget {
@@ -8,11 +10,11 @@ class HomeController extends StatelessWidget {
   Widget buildItem(int index) {
     switch (index) {
       case 0:
-        return const PopularMovies();
+        return const PopularMoviesController();
       case 1:
-        return Container();
+        return const TopMoviesController();
       case 2:
-        return Container();
+        return const UpcomingMoviesController();
       default:
         return Container();
     }

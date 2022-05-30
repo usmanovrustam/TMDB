@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tmdb/bloc/movies/popular.dart';
 import 'package:tmdb/bloc/movies/top_rated.dart';
 import 'package:flutter/material.dart' show DefaultMaterialLocalizations;
+import 'package:tmdb/bloc/movies/upcoming.dart';
 import 'package:tmdb/screens/home.dart';
 import 'package:tmdb/theme/theme.dart';
 
@@ -13,6 +15,8 @@ class TMDBApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => TopRatedBloc()),
+        BlocProvider(create: (context) => PopularBloc()),
+        BlocProvider(create: (context) => UpcomingBloc()),
       ],
       child: CupertinoApp(
         theme: theme,

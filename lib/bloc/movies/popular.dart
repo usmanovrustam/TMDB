@@ -5,24 +5,24 @@ import 'package:tmdb/model/movie.dart';
 import 'package:tmdb/model/pagination/paginated_response.dart';
 import 'package:tmdb/repositories/movie.dart';
 
-class TopRatedState extends SimpleGetState<PaginatedResponse<Movie>> {
-  TopRatedState({
+class PopularState extends SimpleGetState<PaginatedResponse<Movie>> {
+  PopularState({
     bool fetching = false,
     PaginatedResponse<Movie>? movies,
     Exception? exception,
   }) : super(fetching: fetching, data: movies, exception: exception);
 }
 
-class TopRatedBloc extends Cubit<TopRatedState> {
+class PopularBloc extends Cubit<PopularState> {
   final client = http.Client();
 
-  TopRatedBloc() : super(TopRatedState());
+  PopularBloc() : super(PopularState());
 
   Future<void> fetchMovies(int page) async {
-    emit(TopRatedState(fetching: true, movies: state.data));
+    emit(PopularState(fetching: true, movies: state.data));
 
     try {
-      final movies = await MovieRepository.fetchTopMovies(
+      final movies = await MovieRepository.fetchPopularMovies(
         client,
         queryParams: {"page": page},
       );
@@ -33,9 +33,9 @@ class TopRatedBloc extends Cubit<TopRatedState> {
         }
       }
 
-      emit(TopRatedState(movies: movies));
+      emit(PopularState(movies: movies));
     } on Exception catch (exp) {
-      emit(TopRatedState(exception: exp, movies: state.data));
+      emit(PopularState(exception: exp, movies: state.data));
     }
   }
 

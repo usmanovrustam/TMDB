@@ -1,22 +1,23 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tmdb/bloc/movies/top_rated.dart';
+import 'package:tmdb/bloc/movies/popular.dart';
 import 'package:tmdb/cells/activity_indicator.dart';
 import 'package:tmdb/cells/movie_card.dart';
 import 'package:tmdb/theme/style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/utils/constants.dart';
 
-class PopularMovies extends StatefulWidget {
-  const PopularMovies({Key? key}) : super(key: key);
+class PopularMoviesController extends StatefulWidget {
+  const PopularMoviesController({Key? key}) : super(key: key);
 
   @override
-  State<PopularMovies> createState() => _PopularMoviesState();
+  State<PopularMoviesController> createState() =>
+      _PopularMoviesControllerState();
 }
 
-class _PopularMoviesState extends State<PopularMovies> {
+class _PopularMoviesControllerState extends State<PopularMoviesController> {
   @override
   void initState() {
-    context.read<TopRatedBloc>().fetchMovies(1);
+    context.read<PopularBloc>().fetchMovies(1);
     super.initState();
   }
 
@@ -24,7 +25,7 @@ class _PopularMoviesState extends State<PopularMovies> {
     final scrollArea = notification.metrics.maxScrollExtent;
     final scrolled = notification.metrics.pixels;
     final scrollLeft = scrollArea - scrolled;
-    final cubit = context.read<TopRatedBloc>();
+    final cubit = context.read<PopularBloc>();
 
     if (scrollLeft < BOTTOM_FETCH_THR &&
         !cubit.state.fetching &&
@@ -36,7 +37,7 @@ class _PopularMoviesState extends State<PopularMovies> {
     return false;
   }
 
-  Widget get view => BlocBuilder<TopRatedBloc, TopRatedState>(
+  Widget get view => BlocBuilder<PopularBloc, PopularState>(
         builder: (context, state) {
           return state.fetching && state.data == null
               ? const ActivityIndicator()
