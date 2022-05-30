@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tmdb/bloc/casts/casts.dart';
 import 'package:tmdb/bloc/movies/movie.dart';
 import 'package:tmdb/cells/activity_indicator.dart';
+import 'package:tmdb/cells/cast_card.dart';
 import 'package:tmdb/formats.dart';
 import 'package:tmdb/model/movie.dart';
 import 'package:tmdb/theme/style.dart';
@@ -19,6 +21,7 @@ class _MovieDetailsControllerState extends State<MovieDetailsController>
   @override
   void initState() {
     context.read<MovieDetailsBloc>().fetchMovie(widget.id!);
+    context.read<CastsBloc>().fetchCasts(widget.id!);
     super.initState();
   }
 
@@ -49,11 +52,24 @@ class _MovieDetailsControllerState extends State<MovieDetailsController>
         style: Style.body18.copyWith(color: Style.colors.error),
       );
 
-  Widget get casts => ListView.separated(
-        shrinkWrap: true,
-        itemBuilder: (_, index) => Container(),
-        separatorBuilder: (_, index) => Container(),
-        itemCount: 4,
+  Widget get casts => BlocBuilder<CastsBloc, CastsState>(
+        builder: (context, state) {
+          return state.fetching
+              ? const ActivityIndicator()
+              : SizedBox(
+                  height: 230,
+                  child: ListView.separated(
+                    padding: Style.padding16.copyWith(top: 0),
+                    itemCount: 10,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    separatorBuilder: (_, index) => const SizedBox(width: 10),
+                    itemBuilder: (_, index) => CastCard(
+                      cast: state.data![index],
+                    ),
+                  ),
+                );
+        },
       );
 
   Widget get image => BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
@@ -77,38 +93,42 @@ class _MovieDetailsControllerState extends State<MovieDetailsController>
         },
       );
 
+  Widget get detailsList => BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
+        builder: (context, state) {
+          return ListView(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: Style.padding16,
+            children: [
+              name(state.data!),
+              const SizedBox(height: 2),
+              description(state.data!),
+              const SizedBox(height: 2),
+              details("Original Name", state.data!.originalTitle!),
+              const SizedBox(height: 2),
+              details("Runtime", state.data!.displayRunTime),
+              const SizedBox(height: 2),
+              details("Rating", state.data!.voteAvgWithCount),
+              const SizedBox(height: 2),
+              details("Popularity", state.data!.popularity!.toString()),
+              const SizedBox(height: 2),
+              details("Budget", moneyFormat(state.data!.budget!.toString())),
+              const SizedBox(height: 2),
+              details("Revenue", moneyFormat(state.data!.revenue!.toString())),
+              const SizedBox(height: 10),
+              Text(
+                "Casts:",
+                style: Style.headline5.copyWith(color: Style.colors.white),
+              ),
+            ],
+          );
+        },
+      );
+
   Widget get view => BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
         builder: (_, state) => ListView(
           physics: const ClampingScrollPhysics(),
-          children: [
-            image,
-            const SizedBox(height: 10),
-            ListView(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: Style.padding16,
-              children: [
-                name(state.data!),
-                const SizedBox(height: 2),
-                description(state.data!),
-                const SizedBox(height: 2),
-                details("Original Name", state.data!.originalTitle!),
-                const SizedBox(height: 2),
-                details("Runtime", state.data!.displayRunTime),
-                const SizedBox(height: 2),
-                details("Rating", state.data!.voteAvgWithCount),
-                const SizedBox(height: 2),
-                details("Popularity", state.data!.popularity!.toString()),
-                const SizedBox(height: 2),
-                details("Budget", moneyFormat(state.data!.budget!.toString())),
-                const SizedBox(height: 2),
-                details(
-                    "Revenue", moneyFormat(state.data!.revenue!.toString())),
-                const SizedBox(height: 4),
-                casts,
-              ],
-            )
-          ],
+          children: [image, detailsList, casts],
         ),
       );
 

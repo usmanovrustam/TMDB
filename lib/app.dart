@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tmdb/bloc/casts/casts.dart';
 import 'package:tmdb/bloc/movies/movie.dart';
 import 'package:tmdb/bloc/movies/popular.dart';
 import 'package:tmdb/bloc/movies/top_rated.dart';
@@ -19,6 +20,7 @@ class TMDBApp extends StatelessWidget {
         BlocProvider(create: (context) => PopularBloc()),
         BlocProvider(create: (context) => UpcomingBloc()),
         BlocProvider(create: (context) => MovieDetailsBloc()),
+        BlocProvider(create: (context) => CastsBloc()),
       ],
       child: CupertinoApp(
         theme: theme,
