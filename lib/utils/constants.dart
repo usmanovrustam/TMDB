@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 const String apiKey = "e6b38212baf459bc1749d1e0fa386e4c";
-const BOTTOM_FETCH_THR = 250.0;
+const BOTTOM_FETCH_THR = 10.0;
 const DEFAULT_PAGE_LIMIT = 10;
 const List<Map<String, dynamic>> GENRES = [
   {"id": 28, "name": "Action"},

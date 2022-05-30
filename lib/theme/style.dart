@@ -10,8 +10,8 @@ class Style {
 
   /// Border radius templates
 
-  static BorderRadius get border8 => const BorderRadius.all(
-        Radius.circular(8.0),
+  static BorderRadius get border10 => const BorderRadius.all(
+        Radius.circular(10.0),
       );
 
   /// Padding templates

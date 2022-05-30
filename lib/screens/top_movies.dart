@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:tmdb/bloc/movies/top_rated.dart';
 import 'package:tmdb/cells/activity_indicator.dart';
 import 'package:tmdb/cells/movie_card.dart';
+import 'package:tmdb/model/movie.dart';
+import 'package:tmdb/screens/details.dart';
 import 'package:tmdb/theme/style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/utils/constants.dart';
@@ -36,6 +38,12 @@ class _TopMoviesControllerState extends State<TopMoviesController> {
     return false;
   }
 
+  void openDetails(Movie movie) {
+    Navigator.of(context).push(
+      CupertinoPageRoute(builder: (_) => MovieDetailsController(id: movie.id)),
+    );
+  }
+
   Widget get view => BlocBuilder<TopRatedBloc, TopRatedState>(
         builder: (context, state) {
           return state.fetching && state.data == null
@@ -43,6 +51,7 @@ class _TopMoviesControllerState extends State<TopMoviesController> {
               : NotificationListener(
                   onNotification: onScrollNotification,
                   child: ListView.separated(
+                    physics: const ClampingScrollPhysics(),
                     padding: Style.padding16,
                     separatorBuilder: (_, index) => const SizedBox(height: 10),
                     itemCount:
@@ -50,7 +59,11 @@ class _TopMoviesControllerState extends State<TopMoviesController> {
                     itemBuilder: (_, index) =>
                         (index >= state.data!.objects!.length)
                             ? const ActivityIndicator()
-                            : MovieCard(movie: state.data!.objects![index]),
+                            : MovieCard(
+                                movie: state.data!.objects![index],
+                                onTap: () =>
+                                    openDetails(state.data!.objects![index]),
+                              ),
                   ),
                 );
         },

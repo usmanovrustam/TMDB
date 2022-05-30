@@ -63,4 +63,19 @@ class MovieRepository {
 
     return pageData;
   }
+
+  static Future<Movie> fetchMovie(
+    http.Client client, {
+    int? id,
+  }) async {
+    final response = await RepositoryUtils.fetchData(
+      client,
+      "${Api.movie}/$id",
+    );
+
+    // Parse response.
+    final body = json.decode(response.body);
+
+    return Movie.fromJson(body);
+  }
 }
