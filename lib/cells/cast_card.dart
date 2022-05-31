@@ -20,6 +20,7 @@ class CastCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   cast!.name!,
+                  maxLines: 1,
                   style: Style.body2.copyWith(
                     color: Style.colors.white,
                   ),
@@ -29,6 +30,7 @@ class CastCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   cast!.character!,
+                  maxLines: 1,
                   style: Style.body2.copyWith(
                     color: Style.colors.error,
                   ),

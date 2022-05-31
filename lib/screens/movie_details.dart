@@ -68,7 +68,7 @@ class _MovieDetailsControllerState extends State<MovieDetailsController>
                   height: 220,
                   child: ListView.separated(
                     padding: Style.padding16.copyWith(top: 0),
-                    itemCount: 10,
+                    itemCount: 6,
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,

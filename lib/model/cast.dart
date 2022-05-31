@@ -44,7 +44,7 @@ class Cast {
         biography: json["biography"],
         birthday: json["birthday"],
         deathday: json["deathday"],
-        hometown: json["place_of_birth"],
+        hometown: json["place_of_birth"] ?? "",
         popularity: json["popularity"],
         character: json["character"],
         profilePath: json["profile_path"],
