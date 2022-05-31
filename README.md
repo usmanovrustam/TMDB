@@ -1,12 +1,17 @@
 # Welcome to the TMDB test task repository✌🏻
 This repository provides information about different kinds of movies. movies are grouped by categories: Top Rated, Popular and Upcoming.
 
+## Quick Start⚡️😎
+TMDB uses the Movie DB API to retrieve all movies and data. You don’t need to get an API KEY from The Movie DB to run this app on your computer. It is located as `apiKey` in `lib/utils/constatns.dart`. The app uses the v3 version of The Movie DB.
 
-<!-- ## 📸 Examples
+## 📸 Examples
 <pre>
  <img src="screenshots/popular.png" width="28.5%">     <img src="screenshots/top_rated.png" width="30%">     <img src="screenshots/upcoming.png" width="28.5%"> 
-</pre> -->
+</pre>
 
+<pre>
+ <img src="screenshots/movie_details.png" width="28.5%">     <img src="screenshots/casts.png" width="30%">     <img src="screenshots/cast_details.png" width="28.5%"> 
+</pre>
 
 ## Modularization Structure 🔥
 
