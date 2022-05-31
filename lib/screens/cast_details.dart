@@ -90,7 +90,6 @@ class _CastDetailsState extends State<CastDetails> {
   Widget details(String title, String value) => Padding(
         padding: Style.padding16.copyWith(top: 5, bottom: 5),
         child: Text.rich(
-          textAlign: TextAlign.start,
           TextSpan(
             text: "$title:\n",
             children: [
@@ -100,6 +99,7 @@ class _CastDetailsState extends State<CastDetails> {
               )
             ],
           ),
+          textAlign: TextAlign.start,
           style: Style.body18.copyWith(color: Style.colors.error),
         ),
       );
