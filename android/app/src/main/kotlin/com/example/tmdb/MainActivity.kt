@@ -1,4 +1,4 @@
-package com.example.tmdb
+package tmdb.express24.uz
 
 import io.flutter.embedding.android.FlutterActivity
 
