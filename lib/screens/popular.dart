@@ -3,7 +3,7 @@ import 'package:tmdb/bloc/movies/popular.dart';
 import 'package:tmdb/cells/activity_indicator.dart';
 import 'package:tmdb/cells/movie_card.dart';
 import 'package:tmdb/model/movie.dart';
-import 'package:tmdb/screens/details.dart';
+import 'package:tmdb/screens/movie_details.dart';
 import 'package:tmdb/theme/style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tmdb/utils/constants.dart';

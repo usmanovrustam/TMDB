@@ -26,4 +26,19 @@ class CastRepository {
 
     return casts;
   }
+
+  static Future<Cast> fetchCast(
+    http.Client client, {
+    int? id,
+  }) async {
+    final response = await RepositoryUtils.fetchData(
+      client,
+      "${Api.person}/$id",
+    );
+
+    // Parse response.
+    final body = json.decode(response.body);
+
+    return Cast.fromJson(body);
+  }
 }

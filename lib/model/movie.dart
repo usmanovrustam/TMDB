@@ -76,8 +76,6 @@ class Movie {
 
   String get posterImage => "${Settings.imageUrl}$posterPath";
 
-  String get fixedBudget => budget.toString();
-
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
         id: json["id"],
         title: json["title"],
