@@ -11,7 +11,6 @@ class MovieCard extends StatelessWidget {
 
   Widget text(String title, String text) => Expanded(
         child: Text.rich(
-          textAlign: TextAlign.start,
           TextSpan(
             text: title,
             children: [
@@ -21,6 +20,7 @@ class MovieCard extends StatelessWidget {
               )
             ],
           ),
+          textAlign: TextAlign.start,
           style: Style.body2.copyWith(
             color: Style.colors.error,
             overflow: TextOverflow.ellipsis,

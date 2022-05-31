@@ -47,7 +47,6 @@ class _MovieDetailsControllerState extends State<MovieDetailsController>
       );
 
   Widget details(String title, String value) => Text.rich(
-        textAlign: TextAlign.start,
         TextSpan(
           text: "$title:\n",
           children: [
@@ -57,6 +56,7 @@ class _MovieDetailsControllerState extends State<MovieDetailsController>
             )
           ],
         ),
+        textAlign: TextAlign.start,
         style: Style.body18.copyWith(color: Style.colors.error),
       );
 
