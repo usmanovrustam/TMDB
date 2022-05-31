@@ -5,7 +5,9 @@ import 'package:tmdb/bloc/movies/movie.dart';
 import 'package:tmdb/cells/activity_indicator.dart';
 import 'package:tmdb/cells/cast_card.dart';
 import 'package:tmdb/formats.dart';
+import 'package:tmdb/model/cast.dart';
 import 'package:tmdb/model/movie.dart';
+import 'package:tmdb/screens/cast_details.dart';
 import 'package:tmdb/theme/style.dart';
 
 class MovieDetailsController extends StatefulWidget {
@@ -23,6 +25,12 @@ class _MovieDetailsControllerState extends State<MovieDetailsController>
     context.read<MovieDetailsBloc>().fetchMovie(widget.id!);
     context.read<CastsBloc>().fetchCasts(widget.id!);
     super.initState();
+  }
+
+  void openDetails(Cast cast) {
+    Navigator.of(context).push(
+      CupertinoPageRoute(builder: (_) => CastDetails(cast: cast)),
+    );
   }
 
   Widget name(Movie movie) => Text(
@@ -57,15 +65,17 @@ class _MovieDetailsControllerState extends State<MovieDetailsController>
           return state.fetching
               ? const ActivityIndicator()
               : SizedBox(
-                  height: 230,
+                  height: 220,
                   child: ListView.separated(
                     padding: Style.padding16.copyWith(top: 0),
                     itemCount: 10,
+                    physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     separatorBuilder: (_, index) => const SizedBox(width: 10),
                     itemBuilder: (_, index) => CastCard(
                       cast: state.data![index],
+                      onTap: () => openDetails(state.data![index]),
                     ),
                   ),
                 );
